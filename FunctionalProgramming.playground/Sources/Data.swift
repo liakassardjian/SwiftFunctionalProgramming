@@ -1,40 +1,51 @@
 import Foundation
 
-public enum RideCategory: String, CustomStringConvertible {
-    case family
-    case kids
-    case thrill
-    case scary
-    case relaxing
-    case water
-    
-    public var description: String {
-        return rawValue
-    }
+public enum Cor: String {
+    case vermelho
+    case laranja
+    case amarelo
+    case verde
+    case roxo
 }
 
-public typealias Minutes = Double
-
-public struct Ride: CustomStringConvertible {
-    let name: String
-    let categories: Set<RideCategory>
-    let waitTime: Minutes
-    
-    public var description: String {
-        return "Ride –\"\(name)\", wait: \(waitTime) mins, " +
-        "categories: \(categories)\n"
-    }
+public struct Fruta {
+    public let nome: String
+    public let emoji: String
+    public let cor: Cor
+    public let peso: Double
 }
 
-public let parkRides = [
-    Ride(name: "Raging Rapids", categories: [.family, .thrill, .water], waitTime: 45.0),
-    Ride(name: "Crazy Funhouse", categories: [.family], waitTime: 10.0),
-    Ride(name: "Spinning Tea Cups", categories: [.kids], waitTime: 15.0),
-    Ride(name: "Spooky Hollow", categories: [.scary], waitTime: 30.0),
-    Ride(name: "Thunder Coaster",
-         categories: [.family, .thrill],
-         waitTime: 60.0),
-    Ride(name: "Grand Carousel", categories: [.family, .kids], waitTime: 15.0),
-    Ride(name: "Bumper Boats", categories: [.family, .water], waitTime: 25.0),
-    Ride(name: "Mountain Railroad", categories: [.family, .relaxing], waitTime: 0.0)
+
+public let frutas = [
+    Fruta(nome: "Maçã", emoji: "🍎", cor: .vermelho, peso: 110),
+    Fruta(nome: "Maçã", emoji: "🍏", cor: .verde, peso: 110),
+    Fruta(nome: "Laranja", emoji: "🍊", cor: .laranja, peso: 150),
+    Fruta(nome: "Maracujá", emoji: "🍋", cor: .amarelo, peso: 90),
+    Fruta(nome: "Banana", emoji: "🍌", cor: .amarelo, peso: 85),
+    Fruta(nome: "Uva", emoji: "🍇", cor: .roxo, peso: 5),
+    Fruta(nome: "Morango", emoji: "🍓", cor: .vermelho, peso: 30),
+    Fruta(nome: "Pêssego", emoji: "🍑", cor: .laranja, peso: 130),
+    Fruta(nome: "Kiwi", emoji: "🥝", cor: .verde, peso: 95)
 ]
+
+extension Fruta: Comparable {
+    public static func <(lhs: Fruta, rhs: Fruta) -> Bool {
+        return lhs.peso < rhs.peso
+    }
+    
+    public static func ==(lhs: Fruta, rhs: Fruta) -> Bool {
+        return lhs.peso == rhs.peso
+    }
+}
+
+extension Array where Element: Comparable {
+    public func quickSort() -> [Element] {
+        if self.count > 1 {
+            let (pivot, remaining) = (self[0], dropFirst())
+            let lhs = remaining.filter { $0 <= pivot }
+            let rhs = remaining.filter { $0 > pivot }
+            return lhs.quickSort() + [pivot] + rhs.quickSort()
+        }
+        return self
+    }
+}
