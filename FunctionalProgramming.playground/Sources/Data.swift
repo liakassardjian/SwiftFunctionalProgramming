@@ -1,5 +1,8 @@
 import Foundation
 
+/**
+ Enumerador das cores possíveis para as frutas.
+ */
 public enum Cor: String {
     case vermelho
     case laranja
@@ -8,6 +11,9 @@ public enum Cor: String {
     case roxo
 }
 
+/**
+ Struct que representa uma fruta.
+ */
 public struct Fruta {
     public let nome: String
     public let emoji: String
@@ -15,7 +21,9 @@ public struct Fruta {
     public let peso: Double
 }
 
-
+/**
+ Vetor de frutas.
+ */
 public let frutas = [
     Fruta(nome: "Maçã", emoji: "🍎", cor: .vermelho, peso: 110),
     Fruta(nome: "Maçã", emoji: "🍏", cor: .verde, peso: 110),
@@ -28,6 +36,9 @@ public let frutas = [
     Fruta(nome: "Kiwi", emoji: "🥝", cor: .verde, peso: 95)
 ]
 
+/**
+ Extensão de Fruta que define as funções de menor e comparação.
+ */
 extension Fruta: Comparable {
     public static func <(lhs: Fruta, rhs: Fruta) -> Bool {
         return lhs.peso < rhs.peso
@@ -38,6 +49,9 @@ extension Fruta: Comparable {
     }
 }
 
+/**
+ Extensão de Array de elementos comparáveis que implementa um QuickSort sobre o vetor.
+ */
 extension Array where Element: Comparable {
     public func quickSort() -> [Element] {
         if self.count > 1 {
