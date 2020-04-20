@@ -24,6 +24,7 @@ public struct Fruta {
 /**
  Vetor de frutas.
  */
+
 public let frutas = [
     Fruta(nome: "Maçã", emoji: "🍎", cor: .vermelho, peso: 110),
     Fruta(nome: "Maçã", emoji: "🍏", cor: .verde, peso: 110),
